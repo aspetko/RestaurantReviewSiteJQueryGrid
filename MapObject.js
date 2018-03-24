@@ -19,10 +19,10 @@ var MapObject = {
                 for (var b = 0; b < 5; b++) {
                     // filled one's..
                     if (b < restaurants[i].stars) {
-                        restaurantDiv += '<span class="glyphicon glyphicon-star" id="restaurantStars" aria-hidden="true"/>';
+                        restaurantDiv += '&#10029;';
                     } else {
                         // empty one's
-                        restaurantDiv += '<span class="glyphicon glyphicon-star-empty" id="restaurantStars2" aria-hidden="true"/>';
+                        restaurantDiv += '&#10025;';
                     }
                 }
                 restaurantDiv += '</span><p>' + restaurants[i].address_street + '</p><p>' + restaurants[i].address_city + '</p></div>';
@@ -238,12 +238,12 @@ var MapObject = {
             "<div id=\"reviews\"/>" +
             "<div><h4>Your Rating:</h4></div>" +
             "<div>" +
-            "<input type=\"number\" id=\"starsAddRating\" min=\"1\" max=\"5\">" +
+            "    <input type=\"number\" id=\"starsAddRating\" min=\"1\" max=\"5\">" +
             "</div>" +
             "<div>" +
-            "<input type=\"text\" id=\"ratingTextAddRating\" class=\"form-control\" placeholder=\"Tell us what you think...\">" +
+            "    <input type=\"text\" id=\"ratingTextAddRating\"  placeholder=\"Tell us what you think...\">" +
             "</div>" +
-            "<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>" +
+            "<button type=\"button\">Close</button>" +
             "";
         // jQuery('.gm-style-iw').prev('div').remove();
         // jQuery('.gm-style-iw').prev('div').css("background: linear-gradient(blue, lightblue);");
@@ -275,6 +275,9 @@ var MapObject = {
             }
 
         });
+        $('#title').append(marker.getTitle());
+        $('#reviews').empty();
+        $('#reviews').append("<p>Hello World</p>");
 
         var street = new google.maps.StreetViewPanorama(document.getElementById("street-view"), {
             position: panorama.getPosition(),
@@ -284,6 +287,7 @@ var MapObject = {
             panControl: false,
             linksControl: false
         });
+
     },
     createLocation: function (marker) {
         return "https://maps.googleapis.com/maps/api/streetview/metadata?location=" +
@@ -291,7 +295,12 @@ var MapObject = {
             "," +
             marker.getPosition().lng() +
             "&key=AIzaSyAWvxZeVcusN6MQAdW8Y6RnJnf3vN1uR6Q";
-    }
+    },
+    selectionChanged:function(){
+    Storage.save(Storage.FROM_STARS, $("#fromStars").val())
+    Storage.save(Storage.TO_STARS, $("#toStars").val())
+    MapObject.listRestaurants();
+}
 
 
 };
