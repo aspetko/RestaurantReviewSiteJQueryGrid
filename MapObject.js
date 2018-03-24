@@ -93,47 +93,55 @@ var MapObject = {
         );
 
         geocoder.geocode({'location': position}, function (results, status) {
-            var contentString = "<div></div>" +
-                "<div class=\"wrapper\">" +
-                "<div>" +
-                "      <h4>Add a new Restaurant...</h4>\n" +
-                "</div>" +
-                "                              <div class=\"one\">\n" +
-                "                                  <label for=\"nameRestaurantNew\">Name:</label>\n" +
-                "                                  <input type=\"text\" id=\"nameRestaurantNew\" class=\"form-control\" placeholder=\"Name\">\n" +
-                "                              </div>\n" +
-                "                              <div class=\"two\">\n" +
-                "                                  <label for=\"streetRestaurantNew\">Street:</label>\n" +
-                "                                  <input type=\"text\" id=\"streetRestaurantNew\" class=\"form-control\" placeholder=\"Street\">\n" +
-                "                              </div>\n" +
-                "                              <div class=\"three\">\n" +
-                "                                  <label for=\"cityRestaurantNew\">City:</label>\n" +
-                "                                  <input type=\"text\" id=\"cityRestaurantNew\" class=\"form-control\" placeholder=\"city\">\n" +
-                "                              </div>\n" +
-                "                              <div class=\"four\">\n" +
-                "                                  <label for=\"gpsRestaurantNew\">GPS(lat/lng):</label>\n" +
-                "                                  <input type=\"text\" id=\"gpsRestaurantNew\" class=\"form-control\" placeholder=\"(Autofilled)\">\n" +
-                "                              </div>\n" +
-                "                              <div class=\"five\">\n" +
-                "                                  <label for=\"starsRestaurantNew\">Stars of the Restaurant:</label>\n" +
-                "                                  <input type=\"number\" id=\"starsRestaurantNew\" min=\"1\" max=\"5\" class=\"form-control\">\n" +
-                "                              </div>\n" +
-                "                              <div class=\"six\">\n" +
-                "                                  <label for=\"ratingRestaurantNew\">Rating:</label>\n" +
-                "                                  <div id=\"ratingRestaurantNew\">\n" +
-                "                                      <div class=\"col-sm-2\">\n" +
-                "                                          <input type=\"number\" id=\"starsRatingRestaurantNew\" min=\"1\" max=\"5\" class=\"form-control\">\n" +
-                "                                      </div>\n" +
-                "                                      <div class=\"col-sm-10\">\n" +
-                "                                          <input type=\"text\" id=\"ratingRestaurantTextNew\" class=\"form-control\" placeholder=\"Tell us what you think...\">\n" +
-                "                                      </div>\n" +
-                "                                  </div>\n" +
-                "                              </div>\n" +
-                "                          </div>\n" +
-                "                  <div class=\"seven\">" +
-                "                      <button type=\"button\" onClick=\"MapObject.saveRestaurant()\"  id=\"saveRestaurantButton\">Save</button>\n" +
-                "                      <button type=\"button\" onClick='MapObject.abortSaveRestaurant()' class='abortButton'>Abort</button>\n" +
-                "                  </div>\n";
+            var contentString = "<div class='wrapperAddRestaurant'>" +
+                "      <div>" +
+                "            <h4>Add a new Restaurant...</h4> " +
+                "      </div>" +
+                "      <div class='one'> " +
+                "            <label for='nameRestaurantNew'>Name:</label> " +
+                "      </div>" +
+                "      <div class='one'>" +
+                "            <input type='text' id='nameRestaurantNew' placeholder='Name'> " +
+                "      </div>" +
+                "      <div class='one'> " +
+                "            <label for='streetRestaurantNew'>Street:</label> " +
+                "      </div>" +
+                "      <div class='one'>" +
+                "            <input type='text' id='streetRestaurantNew' placeholder='Street'> " +
+                "      </div> " +
+                "    <div class='one'> " +
+                "        <label for='cityRestaurantNew'>City:</label> " +
+                "      </div>" +
+                "      <div class='one'>" +
+                "        <input type='text' id='cityRestaurantNew' placeholder='city'> " +
+                "    </div> " +
+                "    <div class='one'> " +
+                "        <label for='gpsRestaurantNew'>GPS(lat/lng):</label> " +
+                "      </div>" +
+                "      <div class='one'>" +
+                "        <input type='text' id='gpsRestaurantNew' placeholder='(Autofilled)'> " +
+                "    </div> " +
+                "    <div class='one'> " +
+                "        <label for='starsRestaurantNew'>Stars of the Restaurant:</label> " +
+                "      </div>" +
+                "      <div class='one'>" +
+                "        <input type='number' id='starsRestaurantNew' min='1' max='5' class='form-control'> " +
+                "    </div> " +
+                "    <div class='one'> " +
+                "        <label for='ratingRestaurantNew'>Rating:</label> " +
+                "      </div>" +
+                "        <div id='ratingRestaurantNew' class='one'> " +
+                "            <span> " +
+                "                <input type='number' id='starsRatingRestaurantNew' min='1' max='5'> " +
+                "                <input type='text' id='ratingRestaurantTextNew' placeholder='Tell us what you think...'> " +
+                "            </span> " +
+                "        </div> " +
+                "</div> " +
+                "<div class='one'>" +
+                "    <button type='button' onClick='MapObject.saveRestaurant()'  id='saveRestaurantButton'>Save</button> " +
+                "    <button type='button' onClick='MapObject.abortSaveRestaurant()' class='abortButton'>Abort</button> " +
+                "</div> ";
+
             MapObject.addRestaurantOpen = true;
             MapObject.addRestaurantInfowindow = new google.maps.InfoWindow({
                 content: contentString,
@@ -197,10 +205,12 @@ var MapObject = {
     abortSaveRestaurant: function () {
         MapObject.addRestaurantInfowindow.close();
         MapObject.markerAddRestaurant.setMap(null);
+        MapObject.addRestaurantOpen = false;
     },
     closeAddRestaurantDialog: function () {
         MapObject.addRestaurantInfowindow.close();
         MapObject.markerAddRestaurant.setMap(null);
+        MapObject.addRestaurantOpen = false;
     },
     saveRestaurant: function () {
         var marker = new google.maps.Marker({
@@ -233,18 +243,19 @@ var MapObject = {
 
         var STREETVIEW_MAX_DISTANCE = 1000;
 
-        var content = "<h4><div id=\"title\"/><button type=\"button\" class=\"close\">&times;</button></h4>" +
-            "<div id=\"street-view\"/>" +
-            "<div id=\"reviews\"/>" +
+        var content = "<h4><div id='title'/><button type='button' class='close'>&times;</button></h4>" +
+            "<div class='wrapper'>" +
+            "<div id='street-view'/>" +
+            "<div id='reviews'/>" +
             "<div><h4>Your Rating:</h4></div>" +
             "<div>" +
-            "    <input type=\"number\" id=\"starsAddRating\" min=\"1\" max=\"5\">" +
+            "    <input type='number' id='starsAddRating' min='1' max='5'>" +
             "</div>" +
             "<div>" +
-            "    <input type=\"text\" id=\"ratingTextAddRating\"  placeholder=\"Tell us what you think...\">" +
+            "    <input type='text' id='ratingTextAddRating'  placeholder='Tell us what you think...'>" +
             "</div>" +
-            "<button type=\"button\">Close</button>" +
-            "";
+            "<button type='button'>Close</button>" +
+            "</div>";
         // jQuery('.gm-style-iw').prev('div').remove();
         // jQuery('.gm-style-iw').prev('div').css("background: linear-gradient(blue, lightblue);");
 
@@ -269,7 +280,25 @@ var MapObject = {
                     }
                 });
             } else if (status === google.maps.StreetViewStatus.ZERO_RESULTS) {
-                console.log("XXP", "no streetview found :(");
+                var content = "<h4><div id='title'/><button type='button' class='close'>&times;</button></h4>" +
+                    "<div class='wrapper'>" +
+                    "<div>" +
+                    "We deeply regret, unfortunately there is no picture available for this establishment." +
+                    "<div id='reviews'/>" +
+                    "<div><h4>Your Rating:</h4></div>" +
+                    "<div>" +
+                    "    <input type='number' id='starsAddRating' min='1' max='5'>" +
+                    "</div>" +
+                    "<div>" +
+                    "    <input type='text' id='ratingTextAddRating'  placeholder='Tell us what you think...'>" +
+                    "</div>" +
+                    "<button type='button'>Close</button>" +
+                    "</div>";
+                // jQuery('.gm-style-iw').prev('div').remove();
+                // jQuery('.gm-style-iw').prev('div').css("background: linear-gradient(blue, lightblue);");
+
+                var infow = new google.maps.InfoWindow({content: content, maxWidth: 500});
+                infow.open(map, marker);
             } else if (status === google.maps.StreetViewStatus.UNKNOWN_ERROR) {
                 console.error("An UNKNOWN_ERROR occured ");
             }
