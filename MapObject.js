@@ -210,11 +210,11 @@ var MapObject = {
             title: $("#nameRestaurantNew").val()
         });
         var restaurants = Storage.load(Storage.RESTAURANTS);
-        restaurants.push(MapObject.createRestaurantStructure($("#nameRestaurantNew").val(), $("#streetRestaurantNew").val(),
+        restaurants.push(JSONHelper.createRestaurantStructure($("#nameRestaurantNew").val(), $("#streetRestaurantNew").val(),
             $("#cityRestaurantNew").val(), position.lat(), position.lng(), $("#starsRestaurantNew").val(),
             $("#starsRatingRestaurantNew").val(), $("#ratingRestaurantTextNew").val()));
-        save('restaurants', restaurants);
-        Storage.memoryDump('restaurants');
+        Storage.save(Storage.RESTAURANTS, restaurants);
+        Storage.memoryDump(Storage.RESTAURANTS);
 
         ///////////////////////////
         // Reseting Dialog Values

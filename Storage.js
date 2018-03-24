@@ -33,7 +33,7 @@ var Storage = {
      * @param key The key that should be discovered.
      */
     memoryDump:function(key){
-        console.log(key, sessionStorage.getItem(key));
+        console.log(key, JSON.parse(sessionStorage.getItem(key)))
     },
     /**
      * Remove all key-value pairs.
