@@ -1,0 +1,174 @@
+* {
+  outline: 1px dotted red;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#mymap {
+  margin-left: -15px;
+  height: 700px;
+  width: 100%;
+}
+
+#Headercontainer{
+  display: grid;
+  grid-template-columns: 10% 134px 60% 51px 10%;
+  grid-template-rows:75px;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-title {
+  color: white;
+  font-size: 1.5em;
+  padding: 20px;
+  margin-top: 0px;
+  height: 37px;
+  grid-gap: 10px;
+  background: linear-gradient(blue, lightblue);
+}
+
+#left-image{
+  grid-column-start: 2;
+}
+
+#right-image{
+  grid-column-start: 4;
+}
+
+#map-part{
+  /*grid-column-start: span 1 3;*/
+}
+
+#maincontainer{
+  display: grid;
+  grid-template-columns: 80% 320px;
+
+}
+
+#ratingList {
+  /*margin-top: 300px;*/
+}
+
+.App-intro {
+  font-size: large;
+}
+
+#restaurantStars{
+  font-size: smaller;
+}
+
+#restaurantStars2{
+  font-size: smaller;
+}
+
+#street-view {
+  /*margin-left: 200px;*/
+  height: 600px;
+  width: 100%;
+  /*top: 40px;*/
+}
+
+#restaurantsScrollPane {
+  height: 610px;
+  width: 320px;
+  overflow-y: scroll;
+  /*float: right*/
+}
+
+#footercontainer{
+  display: grid;
+  grid-template-columns: 200px 500px;
+
+}
+
+
+footer {
+  /*position: fixed;*/
+  padding: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 850px;
+  }
+}
+
+// new style
+.wrapper {
+     display: grid;
+     grid-template-columns: 20px 1fr;
+     grid-gap: 10px;
+     grid-auto-rows: minmax(100px, auto);
+   }
+
+.gm-style-iw {
+  /*background-color: rgb(237, 28, 36);*/
+  border: 1px solid rgba(72, 181, 233, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  color: rgb(255, 255, 255) !important;
+  font-family: gothambook;
+  text-align: center;
+  /*top: 15px !important;*/
+  width: 500px !important;
+  background: linear-gradient(blue, lightblue);
+}
+
+.one {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.two {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.three {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.four {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.five {
+  grid-column: span 1 3;
+  grid-row: 5;
+}
+
+.six {
+  grid-column: 1;
+  grid-row: 6;
+}
+
+.seven {
+  grid-column: 1;
+  grid-row: 7;
+}
+
+#saveRestaurantButton {
+  margin-top: 10px;
+  height: 40px;
+  background-color: #00b3ff;
+  border: 2px solid green;
+  border-radius: 20px;
+}
+
+.abortButton {
+  height: 40px;
+  border: 2px solid green;
+  border-radius: 20px;
+}

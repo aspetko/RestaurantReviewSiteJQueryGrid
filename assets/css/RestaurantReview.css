@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+#state {
+    width: 20px;
+    float: left;
+}
+
+#map {
+    /*margin-left: 200px;*/
+    /*height: 800px;*/
+    height: 400px;
+    background-color: #00b3ff;
+    width: 100%;
+    /*width: 300px;*/
+    top: 40px;
+}
+
+#street-view {
+    /*margin-left: 200px;*/
+    /*height: 800px;*/
+    height: 400px;
+    background-color: #1c7430;
+    /*width: 300px;*/
+    width: 100%;
+    top: 40px;
+}
+
+#ratingList {
+    margin-top: 30px;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-header {
+    background: linear-gradient(blue, lightblue);
+    height: 75px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+/*.App-intro {*/
+/*font-size: large;*/
+/*}*/
+
+#left-image{
+    position: absolute;
+    top: -20px;
+    left: -35px;
+}
+
+#right-image{
+    position: absolute;
+    top: -20px;
+    right: -36px;
+}

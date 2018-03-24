@@ -1,0 +1,170 @@
+[
+  {
+    "id": "ChIJJ4gGYsALnkcRyIw7cQY2hwo",
+    "restaurantName": "Ivvi's Bistro",
+    "address_street": "Westendstraße 1",
+    "address_city": "85551 Kirchheim bei München",
+    "lat": "48.174702",
+    "lng": "11.750214",
+    "stars": 4,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "4",
+        "comment": "Great! But not many veggie options."
+      },
+      {
+        "stars": "5",
+        "comment": "My favorite restaurant!"
+      }
+    ]
+  },
+  {
+    "id": "ChIJweMU9sALnkcRGbNQiDWqskk",
+    "restaurantName": "Indisches Restaurant Shiva",
+    "address_street": "Am Brunnen 17",
+    "address_city": "85551 Kirchheim bei München",
+    "lat": "48.174033",
+    "lng": "11.750664",
+    "stars": 5,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "5",
+        "comment": "Tiny pizzeria next to Sacre Coeur!"
+      },
+      {
+        "stars": "3",
+        "comment": "Meh, it was fine."
+      }
+    ]
+  },
+  {
+    "id": "ChIJBZOi5MELnkcRCz99WgCIHRI",
+    "restaurantName": "Restaurant Olympia<br> Griechisches Restaurant",
+    "address_street": "Heimstettner Str. 2",
+    "address_city": "85551 Kirchheim",
+    "lat": "48.175984",
+    "lng": "11.752758",
+    "stars": 5,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "5",
+        "comment": "Tiny pizzeria next to Sacre Coeur!"
+      },
+      {
+        "stars": "3",
+        "comment": "Meh, it was fine."
+      }
+    ]
+  },
+  {
+    "id": "ChIJrwcr4cELnkcRxCxUuRM98pE",
+    "restaurantName": "s`Kiramer Wirtshäusl",
+    "address_street": "Münchener Strasse 5a",
+    "address_city": "85551 Kirchheim bei München",
+    "lat": "48.176406",
+    "lng": "11.754196",
+    "stars": 5,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "5",
+        "comment": "Tiny pizzeria next to Sacre Coeur!"
+      },
+      {
+        "stars": "3",
+        "comment": "Meh, it was fine."
+      }
+    ]
+  },
+  {
+    "id": "ChIJ9-RYAuoLnkcRI6u-_Qgz8NM",
+    "restaurantName": "Gasthof Neuwirt",
+    "address_street": "Erdinger Str. 2",
+    "address_city": "85551 Kirchheim bei München",
+    "lat": "48.177089",
+    "lng": "11.756471",
+    "stars": 5,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "5",
+        "comment": "Tiny pizzeria next to Sacre Coeur!"
+      },
+      {
+        "stars": "3",
+        "comment": "Meh, it was fine."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "restaurantName": "KSC Geschäftsstelle Kirchheimer Sport-Club e.V.",
+    "address_street": "Florianstraße 26",
+    "address_city": "85551 Kirchheim bei München",
+    "lat": "48.174498",
+    "lng": "11.761715",
+    "stars": 5,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "5",
+        "comment": "Tiny pizzeria next to Sacre Coeur!"
+      },
+      {
+        "stars": "3",
+        "comment": "Meh, it was fine."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "restaurantName": "Las Vegas - Should not show!",
+    "address_street": "If this shows up, we did not filter the list correct!",
+    "address_city": "Las Vegas",
+    "lat": "36.255123",
+    "lng": "-115.2383485",
+    "stars": 5,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "5",
+        "comment": "Tiny pizzeria next to Sacre Coeur!"
+      },
+      {
+        "stars": "3",
+        "comment": "Meh, it was fine."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "restaurantName": "New York - Should not show either!",
+    "address_street": "I always want to fly 9 hours to get a '7 Layer Burrito'",
+    "address_city": "New York",
+    "lat": "40.7143528",
+    "lng": "-74.0059730",
+    "stars": 5,
+    "heading": 34,
+    "pitch": 10,
+    "ratings": [
+      {
+        "stars": "5",
+        "comment": "Tiny pizzeria next to Sacre Coeur!"
+      },
+      {
+        "stars": "3",
+        "comment": "Meh, it was fine."
+      }
+    ]
+  }
+]
