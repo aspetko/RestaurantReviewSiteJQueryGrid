@@ -85,4 +85,3 @@ function callback(results, status) {
     MapObject.listRestaurants();
     map.fitBounds(bounds);
 }
-

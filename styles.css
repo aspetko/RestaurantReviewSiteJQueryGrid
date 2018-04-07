@@ -134,6 +134,14 @@ footer {
   background: linear-gradient(blue, lightblue);
 }
 
+.gm-style-pbt {
+  display: hidden;
+}
+
+.gm-style-pbc {
+  display: hidden;
+}
+
 .one {
   margin-left: 20px !important;
   grid-column: 1;
@@ -176,3 +184,7 @@ footer {
   border: 2px solid green;
   border-radius: 20px;
 }
+
+/*canvas {*/
+  /*min-width: 600px !important;*/
+/*}*/

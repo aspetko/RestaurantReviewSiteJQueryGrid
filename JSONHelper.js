@@ -38,9 +38,9 @@ var JSONHelper = {
             ]
         };
     },
-    createRestaurantStructure:function(name, street, city, lat, lng, stars, rating_star, rating_comment){
+    createRestaurantStructure:function(id, name, street, city, lat, lng, stars, rating_star, rating_comment){
      return {
-            "id": -1,
+            "id": id,
             "restaurantName": name,
             "address_street": street,
             "address_city": city,
