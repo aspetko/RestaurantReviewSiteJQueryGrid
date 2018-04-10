@@ -2,12 +2,14 @@
 ////////////////////////////////////////////////////
 var onSpot = false;
 // var onSpot = true;
-
+//
 var Storage = Storage || {};
 
 var MapObject = MapObject || {};
 
 var JSONHelper = JSONHelper || {};
+
+var TemplateEngine = TemplateEngine || {};
 // Global Variables
 //////////////////////
 var bounds;
@@ -73,7 +75,6 @@ function callback(results, status) {
     bounds = new google.maps.LatLngBounds();
     for (var j = 0; j < results.length; j++) {
         var marker = JSONHelper.createMarker(map, results[j]);
-
         var data = JSONHelper.dataHelper(results[j]);
         filterRestaurants.push(data);
         google.maps.event.addListener(marker, "click", MapObject.clickListener);

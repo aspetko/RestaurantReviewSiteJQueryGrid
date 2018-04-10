@@ -1,115 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Restaurant Review Site</title>
-    <!-- Font Awesome -->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="styles.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Restaurant Review Site</title>
+        <!-- Font Awesome -->
+        <link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="styles.css">
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/ico/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/ico/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/ico/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/ico/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/ico/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/ico/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/ico/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/ico/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/ico/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="assets/ico/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/ico/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/ico/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/ico/favicon-16x16.png">
-    <link rel="manifest" href="assets/ico/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="assets/ico/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-</head>
-<body>
-<!-- Header -->
-<header>
-<div id="Headercontainer">
-    <div  id="left-image">
-        <img src="./assets/images/photo-1458644267420-66bc8a5f21e4.jpeg" alt="Seafood" height="75px" />
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="57x57" href="assets/ico/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="assets/ico/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="assets/ico/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="assets/ico/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="assets/ico/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="assets/ico/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="assets/ico/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="assets/ico/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/ico/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="assets/ico/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/ico/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="assets/ico/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/ico/favicon-16x16.png">
+        <link rel="manifest" href="assets/ico/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="assets/ico/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+    <!-- Header -->
+    <header>
+    <div id="Headercontainer">
+        <div  id="left-image">
+            <img src="./assets/images/photo-1458644267420-66bc8a5f21e4.jpeg" alt="Seafood" height="75px" />
+        </div>
+        <div id="App-title">
+            <h1 class="App-title">Alexander's Restaurant Guide</h1>
+        </div>
+        <div id="right-image">
+            <img src="./assets/images/photo-1513772457252-c0417654a2a0.jpeg" alt="Seafood" height="75px"/>
+        </div>
+        <!-- End of Header -->
     </div>
-    <div id="App-title">
-        <h1 class="App-title">Alexander's Restaurant Guide</h1>
-    </div>
-    <div id="right-image">
-        <img src="./assets/images/photo-1513772457252-c0417654a2a0.jpeg" alt="Seafood" height="75px"/>
-    </div>
-    <!-- End of Header -->
-</div>
-</header>
-<main>
-    <!-- Map and Review Part -->
-<div id="maincontainer">
-    <div id="mymap"></div>
-    <div>
+    </header>
+    <main>
+        <!-- Map and Review Part -->
+    <div id="maincontainer">
+        <div id="mymap"></div>
         <div>
-            <h2>List of Restaurants</h2>
-        </div>
-        <div id="ratingList">
-            From:
-            <input type="number" id="fromStars" min="1" max="5" steps="1" value="1" onChange="MapObject.selectionChanged()">
-            To:
-            <input type="number" id="toStars" min="1" max="5" steps="1" value="5" onChange="MapObject.selectionChanged()">
-        </div>
-        <div id="restaurantsScrollPane">
-            <div id="restaurants">
+            <div>
+                <h2>List of Restaurants</h2>
             </div>
-            <br>
+            <div id="ratingList">
+                From:
+                <input type="number" id="fromStars" min="1" max="5" steps="1" value="1" onChange="MapObject.selectionChanged()">
+                To:
+                <input type="number" id="toStars" min="1" max="5" steps="1" value="5" onChange="MapObject.selectionChanged()">
+            </div>
+            <div id="restaurantsScrollPane">
+                <div id="restaurants">
+                </div>
+                <br>
+            </div>
         </div>
     </div>
-</div>
-</main>
-  <!-- End of Map and Review Part -->
-  <!-- FOOTER
-  <footer id="footercontainer">
-          <div>
-              <p>Location(Lat./Long.):</p>
-              <div id="position">
-              </div>
-        </div>
-          <div>
-              <!--<div class="col-sm-2">
-                  <p>Map(NorthEast):</p>
-              </div>
-              <!--<div class="col-sm-5">
-                  <!--<p id="bounds_northEast"/>
-              <!--</div>
-          <!--</div
-          <!--<div class="row">
-              <!--<div class="col-sm-2">
-                  <!--<p>Map(SouthWest):</p>
-              <!--</div>
-              <!--<div class="col-sm-5">
-                  <!--<p id="bounds_southWest"/>
+    </main>
+      <!-- End of Map and Review Part -->
+      <!-- FOOTER
+      <footer id="footercontainer">
+              <div>
+                  <p>Location(Lat./Long.):</p>
+                  <div id="position">
+                  </div>
+            </div>
+              <div>
+                  <!--<div class="col-sm-2">
+                      <p>Map(NorthEast):</p>
+                  </div>
+                  <!--<div class="col-sm-5">
+                      <!--<p id="bounds_northEast"/>
+                  <!--</div>
+              <!--</div
+              <!--<div class="row">
+                  <!--<div class="col-sm-2">
+                      <!--<p>Map(SouthWest):</p>
+                  <!--</div>
+                  <!--<div class="col-sm-5">
+                      <!--<p id="bounds_southWest"/>
+                  <!--</div>
               <!--</div>
           <!--</div>
-      <!--</div>
-  </footer>-->
+      </footer>-->
 
 
 
-<!-- Scripts and and third party libraries -->
-  <script src="assets/js/jquery-3.2.1.min.js"></script>
-  <script>
-      fetch('restaurants.json')
-          .then(function (restaurants) {
-              return restaurants.json();
-          })
-          .then(function (restaurants) {
-              sessionStorage.setItem('restaurants', JSON.stringify(restaurants));
-              console.log('restaurants', JSON.parse(sessionStorage.getItem('restaurants')));
-          });
-  </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWvxZeVcusN6MQAdW8Y6RnJnf3vN1uR6Q&libraries=places&callback=initialize"></script>
-  <script src="MapObject.js"></script>
-  <script src="Storage.js"></script>
-  <script src="JSONHelper.js"></script>
-  <script src="app.js"></script>
-</body>
+    <!-- Scripts and and third party libraries -->
+      <script src="assets/js/jquery-3.2.1.min.js"></script>
+      <script>
+          fetch('restaurants.json')
+              .then(function (restaurants) {
+                  return restaurants.json();
+              })
+              .then(function (restaurants) {
+                  sessionStorage.setItem('restaurants', JSON.stringify(restaurants));
+                  console.log('restaurants', JSON.parse(sessionStorage.getItem('restaurants')));
+              });
+      </script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWvxZeVcusN6MQAdW8Y6RnJnf3vN1uR6Q&libraries=places&callback=initialize"></script>
+      <script src="MapObject.js"></script>
+      <script src="Storage.js"></script>
+      <script src="JSONHelper.js"></script>
+      <script src="TemplateEngine.js"></script>
+      <script src="app.js"></script>
+  </body>
 </html>

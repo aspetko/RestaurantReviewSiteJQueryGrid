@@ -39,7 +39,7 @@ var JSONHelper = {
         };
     },
     createRestaurantStructure:function(id, name, street, city, lat, lng, stars, rating_star, rating_comment){
-     return {
+        return {
             "id": id,
             "restaurantName": name,
             "address_street": street,
@@ -51,11 +51,24 @@ var JSONHelper = {
                 "stars": rating_star,
                 "comment": rating_comment
             }
-        ]};
+            ]};
+    },
+    createRestaurantStructureMultipleRatings:function(id, name, street, city, lat, lng, stars, ratings){
+        return {
+            "id": id,
+            "restaurantName": name,
+            "address_street": street,
+            "address_city": city,
+            "lat": lat,
+            "lng": lng,
+            "stars": stars,
+            "ratings": ratings
+        };
     },
     createMarker:function(map, result){
         return new google.maps.Marker({
             map: map,
+            id: result.place_id,
             icon: JSONHelper.createIcon(),
             title: result.name,
             position: new google.maps.LatLng(
@@ -69,5 +82,12 @@ var JSONHelper = {
             google.maps.MapTypeId.ROADMAP
             //     mapTypeId: google.maps.MapTypeId.SATELLITE
         );
+    },
+    createPictureUrl:function(marker){
+        return "https://maps.googleapis.com/maps/api/streetview/metadata?location="+
+            marker.getPosition().lat()+
+            ","+
+            marker.getPosition().lng()+
+            "&key=AIzaSyAWvxZeVcusN6MQAdW8Y6RnJnf3vN1uR6Q";
     }
 };

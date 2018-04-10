@@ -2,7 +2,7 @@ var MapObject = {
     markerAddRestaurant: null,
     addRestaurantOpen: false,
     addRestaurantInfowindow: null,
-    infow: null,
+    currentSelectedRestaurant: null,
     /**
      * Filter the restaurant list limited to the current visible area.
      */
@@ -34,20 +34,21 @@ var MapObject = {
     },
     /**
      * This is a helper method. Used when I am working on the train. I needed a fixed point to get started and not every
-     * time a different starting point.
+     * time a different starting position.
      */
     fallback: function () {
+        console.log("Using Fallback...");
         position = new google.maps.LatLng(48.171229, 11.746022);
-        var currentLocation = new google.maps.Marker({
+        var currentLocationMarker = new google.maps.Marker({
             position: position,
-            map: map,
             title: "Using Fallback - (48.171229, 11.746022)"
         });
+
         infoWindow = new window.google.maps.InfoWindow({map: map});
-        infoWindow.setPosition(position);
-        infoWindow.setContent("Using Fallback - (48.171229, 11.746022)");
-        infoWindow.open(map, currentLocation);
-        $("#position").innerHTML = '<span>48.171229, 11.746022</span>';
+        // infoWindow.setPosition(position);
+        // infoWindow.setContent("<p>Using Fallback - (48.171229, 11.746022)</p>");
+        infoWindow.open(map, currentLocationMarker);
+        // $("#position").innerHTML = '<span>48.171229, 11.746022</span>';
 
     },
     displayCoordinates: function (pnt) {
@@ -94,65 +95,18 @@ var MapObject = {
         );
 
         geocoder.geocode({'location': position}, function (results, status) {
-            var contentString = "<div class='wrapperAddRestaurant'>" +
-                "      <div>" +
-                "            <h4>Add a new Restaurant...</h4> " +
-                "      </div>" +
-                "      <div class='one'> " +
-                "            <label for='nameRestaurantNew'>Name:</label> " +
-                "      </div>" +
-                "      <div class='one'>" +
-                "            <input type='text' id='nameRestaurantNew' placeholder='Name'> " +
-                "      </div>" +
-                "      <div class='one'> " +
-                "            <label for='streetRestaurantNew'>Street:</label> " +
-                "      </div>" +
-                "      <div class='one'>" +
-                "            <input type='text' id='streetRestaurantNew' placeholder='Street'> " +
-                "      </div> " +
-                "    <div class='one'> " +
-                "        <label for='cityRestaurantNew'>City:</label> " +
-                "      </div>" +
-                "      <div class='one'>" +
-                "        <input type='text' id='cityRestaurantNew' placeholder='city'> " +
-                "    </div> " +
-                "    <div class='one'> " +
-                "        <label for='gpsRestaurantNew'>GPS(lat/lng):</label> " +
-                "      </div>" +
-                "      <div class='one'>" +
-                "        <input type='text' id='gpsRestaurantNew' placeholder='(Autofilled)'> " +
-                "    </div> " +
-                "    <div class='one'> " +
-                "        <label for='starsRestaurantNew'>Stars of the Restaurant:</label> " +
-                "      </div>" +
-                "      <div class='one'>" +
-                "        <input type='number' id='starsRestaurantNew' min='1' max='5' class='form-control'> " +
-                "    </div> " +
-                "    <div class='one'> " +
-                "        <label for='ratingRestaurantNew'>Rating:</label> " +
-                "      </div>" +
-                "        <div id='ratingRestaurantNew' class='one'> " +
-                "            <span> " +
-                "                <input type='number' id='starsRatingRestaurantNew' min='1' max='5'> " +
-                "                <input type='text' id='ratingRestaurantTextNew' placeholder='Tell us what you think...'> " +
-                "            </span> " +
-                "        </div> " +
-                "</div> " +
-                "<div class='one'>" +
-                "    <button type='button' onClick='MapObject.saveRestaurant()'  id='saveRestaurantButton'>Save</button> " +
-                "    <button type='button' onClick='MapObject.abortSaveRestaurant()' class='abortButton'>Abort</button> " +
-                "</div> ";
-
             MapObject.addRestaurantOpen = true;
             MapObject.addRestaurantInfowindow = new google.maps.InfoWindow({
-                content: contentString,
+                content: TemplateEngine.addNewRestaurantDialog(position),
                 maxWidth: 500
             });
+
             MapObject.markerAddRestaurant = new google.maps.Marker({
                 position: position,
                 map: map,
                 title: 'Add a New Restaurant...'
             });
+
             MapObject.addRestaurantInfowindow.open(map, MapObject.markerAddRestaurant);
             if (status === 'OK') {
                 if (results[0]) {
@@ -167,30 +121,27 @@ var MapObject = {
             } else {
                 $("#cityRestaurantNew").val('Geocoder failed due to: ' + status);
             }
+            $(".gm-style-iw").css("width","500px");
         });
     },
     displayBounds: function (bounds) {
         var southWest = bounds.getSouthWest();
         var northEast = bounds.getNorthEast();
-        $("#bounds_northEast").empty();
-        $("#bounds_southWest").empty();
-        $("#bounds_northEast").append('<p>' + southWest.lat() + ", " + southWest.lng() + '</p>');
-        $("#bounds_southWest").append('<p>' + northEast.lat() + ", " + northEast.lng() + '</p>');
+        // $("#bounds_northEast").empty();
+        // $("#bounds_southWest").empty();
+        // $("#bounds_northEast").append('<p>' + southWest.lat() + ", " + southWest.lng() + '</p>');
+        // $("#bounds_southWest").append('<p>' + northEast.lat() + ", " + northEast.lng() + '</p>');
     },
     usingHTML5Geolocation: function () {
         navigator.geolocation.getCurrentPosition(function (thePosition) {
-            position = {
+            var position = {
                 lat: thePosition.coords.latitude,
                 lng: thePosition.coords.longitude
             };
             infoWindow.setPosition(position);
             infoWindow.setContent("Location found.");
             infoWindow.open(map);
-            console.log("Location found.");
             map.setCenter(position);
-            $("#position").empty();
-            $("#position").innerHTML = '<span>thePosition.coords.latitude+ ", " + thePosition.coords.longitude</span>';
-            console.log("navigator.geolocation", onSpot, position);
         }, function () {
             infoWindow.setPosition(position);
             infoWindow.setContent("Error: The Geolocation service failed.");
@@ -204,7 +155,9 @@ var MapObject = {
     },
     abortSaveRestaurant: function () {
         MapObject.addRestaurantInfowindow.close();
-        MapObject.markerAddRestaurant.setMap(null);
+        if (MapObject.markerAddRestaurant !== null) {
+            MapObject.markerAddRestaurant.setMap(null);
+        }
         MapObject.addRestaurantOpen = false;
     },
     closeAddRestaurantDialog: function () {
@@ -212,10 +165,52 @@ var MapObject = {
         MapObject.markerAddRestaurant.setMap(null);
         MapObject.addRestaurantOpen = false;
     },
-    closeInfoW: function () {
-        MapObject.infow.close();
-    },
     saveRestaurant: function () {
+        var id = this.guid();
+        var marker = new google.maps.Marker({
+            restaurant_id: id,
+            position: position,
+            map: map,
+            title: $("#nameRestaurantNew").val()
+        });
+        var restaurants = Storage.load(Storage.RESTAURANTS);
+        var restaurantsReplaceHelper = [];
+        console.log("saveRestaurant", MapObject.currentSelectedRestaurant.id);
+
+        for (var i=0; i<restaurants.length; i++){
+            if (restaurants[i].id === MapObject.currentSelectedRestaurant.id){
+                var data = JSONHelper.createRestaurantStructure(
+                    restaurants[i].id,
+                    restaurants[i].restaurantName,
+                    restaurants[i].address_street,
+                    restaurants[i].address_city,
+                    restaurants[i].lat,
+                    restaurants[i].lng,
+                    restaurants[i].stars,
+                    $("#starsAddRating").val(),
+                    $("#ratingTextAddRating").val()
+                );
+                restaurantsReplaceHelper.push(data);
+            } else {
+                restaurantsReplaceHelper.push(restaurants[i]);
+            }
+        }
+        Storage.save(Storage.RESTAURANTS, restaurantsReplaceHelper);
+        Storage.memoryDump(Storage.RESTAURANTS);
+
+        ///////////////////////////
+        // Reseting Dialog Values
+        $("#streetRestaurantNew").val("");
+        $("#cityRestaurantNew").val("");
+        $("#nameRestaurantNew").val("");
+        $("#gpsRestaurantNew").val("");
+        $("#starsRestaurantNew").val("");
+        $("#ratingRestaurantNew").val("");
+        MapObject.addRestaurantInfowindow.close();
+        google.maps.event.addListener(marker, "click", this.clickListenerRestaurant);
+        this.listRestaurants();
+    },
+    saveNewRestaurant: function () {
         var id = this.guid();
         var marker = new google.maps.Marker({
             restaurant_id: id,
@@ -242,209 +237,149 @@ var MapObject = {
         google.maps.event.addListener(marker, "click", this.clickListenerRestaurant);
         this.listRestaurants();
     },
+    saveEditRestaurant: function () {
+        var restaurants = Storage.load(Storage.RESTAURANTS);
+        var restaurantsReplaceHelper = [];
+        var ratingsHelper = [];
+        var star = $("#starsAddRating").val();
+        var comment = $("#ratingTextAddRating").val();
+        var array = { star, comment };
+        ratingsHelper.push(array);
+
+        for (var i=0; i<restaurants.length; i++){
+            if (restaurants[i].id === MapObject.currentSelectedRestaurant.id){
+                if (restaurants[i].ratings.length > 0){
+                    for (var r =0; r<restaurants[i].ratings.length; r++){
+                        ratingsHelper.push(
+                            restaurants[i].ratings[r]
+                        );
+                    }
+                }
+                var data = JSONHelper.createRestaurantStructureMultipleRatings(
+                    restaurants[i].id,
+                    restaurants[i].restaurantName,
+                    restaurants[i].address_street,
+                    restaurants[i].address_city,
+                    restaurants[i].lat,
+                    restaurants[i].lng,
+                    $("#starsRestaurantNew").val(),
+                    ratingsHelper
+                );
+                restaurantsReplaceHelper.push(data);
+            } else {
+                restaurantsReplaceHelper.push(restaurants[i]);
+            }
+        }
+        Storage.save(Storage.RESTAURANTS, restaurantsReplaceHelper);
+        MapObject.addRestaurantOpen = false;
+        MapObject.addRestaurantInfowindow.close();
+        Storage.memoryDump(Storage.RESTAURANTS);
+    },
+    abortSaveEditRestaurant: function () {
+        MapObject.addRestaurantOpen = false;
+        MapObject.addRestaurantInfowindow.close();
+    },
     clickListenerRestaurant: function () {
         var marker = this;
-        console.log(marker.restaurant_id);
         var restaurants = Storage.load(Storage.RESTAURANTS);
-        var restaurant = "";
+
         for (var i=0; i<restaurants.length; i++){
             if (restaurants[i].id === marker.restaurant_id){
-                restaurant = restaurants[i];
-                console.log(" restaurant found ");
+                MapObject.currentSelectedRestaurant = restaurants[i];
             }
         }
         if (MapObject.addRestaurantOpen) {
             MapObject.closeAddRestaurantDialog();
         }
-        var contentString = "<div class='wrapperAddRestaurant'>" +
-            "      <div>" +
-            "            <h4>Edit a Restaurant...</h4> " +
-            "      </div>" +
-            "      <div class='one'> " +
-            "            <label for='nameRestaurantNew'>Name:</label> " +
-            "      </div>" +
-            "      <div class='one'>" +
-            "            <input type='text' id='nameRestaurantNew' placeholder='Name' value='"+restaurant.restaurantName+"'> " +
-            "      </div>" +
-            "      <div class='one'> " +
-            "            <label for='streetRestaurantNew'>Street:</label> " +
-            "      </div>" +
-            "      <div class='one'>" +
-            "            <input type='text' id='streetRestaurantNew' placeholder='Street' value='"+restaurant.address_street+"'> " +
-            "      </div> " +
-            "    <div class='one'> " +
-            "        <label for='cityRestaurantNew'>City:</label> " +
-            "      </div>" +
-            "      <div class='one'>" +
-            "        <input type='text' id='cityRestaurantNew' placeholder='city' value='"+restaurant.address_city+"'> " +
-            "    </div> " +
-            "    <div class='one'> " +
-            "        <label for='gpsRestaurantNew'>GPS(lat/lng):</label> " +
-            "      </div>" +
-            "      <div class='one'>" +
-            "        <input type='text' id='gpsRestaurantNew' placeholder='(Autofilled)' value='"+restaurant.lat+"/"+restaurant.lng+"'> " +
-            "    </div> " +
-            "    <div class='one'> " +
-            "        <label for='starsRestaurantNew'>Stars of the Restaurant:</label> " +
-            "      </div>" +
-            "      <div class='one'>" +
-            "        <input type='number' id='starsRestaurantNew' min='1' max='5' class='form-control' value='"+restaurant.stars+"'> " +
-            "    </div> " +
-            "    <div class='one'> " +
-            "        <label for='ratingRestaurantNew'>Rating:</label> " +
-            "      </div>"+
-            "        <div id='ratingRestaurantNew' class='one'> ";
-       for (var r=0; r<restaurant.ratings.length; r++){
-           contentString +=
-               "            <span> " +
-               "                <input type='number' id='starsRatingRestaurantNew' min='1' max='5' value='"+restaurant.ratings[r].stars+"'> " +
-               "                <input type='text' id='ratingRestaurantTextNew' placeholder='Tell us what you think...' value='"+restaurant.ratings[r].comment+"'> " +
-               "            </span><br> ";
-            console.log(restaurant.ratings[r]);
-        }
-       contentString +=
-            "        </div> " +
-            "</div> " +
-            "<div class='one'>" +
-            "    <button type='button' onClick='MapObject.saveRestaurant()'  id='saveRestaurantButton'>Save</button> " +
-            "    <button type='button' onClick='MapObject.abortSaveRestaurant()' class='abortButton'>Abort</button> " +
-            "</div> ";
-
-            MapObject.addRestaurantOpen = true;
-            MapObject.addRestaurantInfowindow = new google.maps.InfoWindow({
-                content: contentString,
-                maxWidth: 500
-            });
+        MapObject.addRestaurantOpen = true;
+        MapObject.addRestaurantInfowindow = new google.maps.InfoWindow({
+            content: TemplateEngine.editRestaurant(),
+            maxWidth: 500
+        });
 
         MapObject.addRestaurantInfowindow.open(map, MapObject.markerAddRestaurant);
-        console.log(restaurant);
     },
     clickListener: function () {
         var marker = this;
         var lookTo = marker.getPosition();
         var service = new google.maps.StreetViewService();
 
-        var STREETVIEW_MAX_DISTANCE = 1000;
-
-        var content = "<h4><div id='title'/><button type='button' onclick='MapObject.closeInfoW()' class='close'>&times;</button></h4>" +
-            "<div class='wrapper'>" +
-            "<div id='street-view'/>" +
-            "<div id='reviews'/>" +
-            "<div><h4>Your Rating:</h4></div>" +
-            "<div>" +
-            "    <input type='number' id='starsAddRating' min='1' max='5'>" +
-            "</div>" +
-            "<div>" +
-            "    <input type='text' id='ratingTextAddRating'  placeholder='Tell us what you think...'>" +
-            "</div>" +
-            "<button type='button'>Close</button>" +
-            "</div>";
-        // jQuery('.gm-style-iw').prev('div').remove();
-        // jQuery('.gm-style-iw').prev('div').css("background: linear-gradient(blue, lightblue);");
-        var myOptions = {
-            content: content
-            , disableAutoPan: false
-            , maxWidth: 0
-            , pixelOffset: new google.maps.Size(-140, 80)
-            , zIndex: null
-            , boxStyle: {
-                background: "url('images/tipbox.gif') no-repeat"
-                , opacity: 0.90
-                , width: "280px"
+        var restaurants = Storage.load(Storage.RESTAURANTS);
+        for (var i=0; i<restaurants.length; i++){
+            if (restaurants[i].id === marker.id) {
+                MapObject.currentSelectedRestaurant = restaurants[i];
             }
-            , closeBoxMargin: "2px 2px 2px 2px"
-            , closeBoxURL: "images/close.gif"
-            , infoBoxClearance: new google.maps.Size(1, 1)
-            , isHidden: false
-            , pane: "floatPane"
-            , enableEventPropagation: false
-        };
+        }
 
-        MapObject.infow = new google.maps.InfoWindow({content: content, width: "500px"});
-        MapObject.infow.open(map, marker);
+        var STREETVIEW_MAX_DISTANCE = 1000;
+        MapObject.addRestaurantInfowindow = new google.maps.InfoWindow({content: TemplateEngine.existingRestaurantTemplate(), width: "200px"});
+        MapObject.addRestaurantInfowindow.open(map, marker);
         var panoramaDiv = document.getElementById("street-view");
-        // var panorama = new google.maps.StreetViewPanorama(panoramaDiv, JSONHelper.streetViewHelper(lookTo));
-        var fenway = {lat: 42.345573, lng: -71.098326};
-        var map = new google.maps.Map(document.getElementById('mymap'), {
-            center: fenway,
-            zoom: 14
-        });
-        var panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('street-view'), {
-                position: fenway,
-                pov: {
-                    heading: 34,
-                    pitch: 10
+        var panorama = new google.maps.StreetViewPanorama(panoramaDiv, JSONHelper.streetViewHelper(lookTo));
+
+        service.getPanoramaByLocation(panorama.getPosition(), STREETVIEW_MAX_DISTANCE, function (panoData, status) {
+            $.get(JSONHelper.createPictureUrl(marker), function (data) {
+                if (data.status === 'OK') { // Picture is availible
+                    $.get(MapObject.createLocation(marker), function (data) {
+                        if (panoData != null) {
+                            var heading = google.maps.geometry.spherical.computeHeading(panoData.location.latLng, lookTo);
+                            var pov = panorama.getPov();
+
+                            pov.heading = heading;
+                            panorama.setPov(pov);
+                        }
+                    });
+                } else { // No Picture is available
+                    MapObject.addRestaurantInfowindow.close();
+                    MapObject.addRestaurantInfowindow = new google.maps.InfoWindow(
+                        {content: TemplateEngine.noPictureDialog(),
+                            maxWidth: 500}
+                        );
+                    MapObject.addRestaurantInfowindow.open(map, marker);
                 }
             });
-        map.setStreetView(panorama);
-        //
-        // var url = "https://maps.googleapis.com/maps/api/streetview/metadata?location="+
-        //     marker.getPosition().lat()+
-        //     ","+
-        //     marker.getPosition().lng()+
-        //     "&key=AIzaSyAWvxZeVcusN6MQAdW8Y6RnJnf3vN1uR6Q";
-        //
-        // service.getPanoramaByLocation(panorama.getPosition(), STREETVIEW_MAX_DISTANCE, function (panoData, status) {
-        //     $.get(url, function (data) {
-        //         if (data.status === 'OK') {
-        //             $.get(MapObject.createLocation(marker), function (data) {
-        //                 if (panoData != null) {
-        //                     var heading = google.maps.geometry.spherical.computeHeading(panoData.location.latLng, lookTo);
-        //                     var pov = panorama.getPov();
-        //
-        //                     pov.heading = heading;
-        //                     panorama.setPov(pov);
-        //
-        //                     // Reference to the DIV which receives the contents of the infowindow using jQuery
-        //                     var iwOuter = $('.gm-style-iw');
-        //
-        //                     /* The DIV we want to change is above the .gm-style-iw DIV.
-        //                      * So, we use jQuery and create a iwBackground variable,
-        //                      * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
-        //                      */
-        //                     var iwBackground = iwOuter.prev();
-        //
-        //                     // Remove the background shadow DIV
-        //                     iwBackground.children(':nth-child(2)').css({'display' : 'none'});
-        //
-        //                     // Remove the white background DIV
-        //                     iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-        //                     console.log("panorama", panorama);
-        //
-        //                     var test = $("#street-view").css("min-width", "1000px");
-        //                     console.log("test", test);
-        //
-        //
-        //                 }
-        //             });
-        //         } else {
-        //             MapObject.infow.close();
-        //             content = "<h4><div id='title'/><button type='button' onclick='MapObject.closeInfoW()' class='close'>&times;</button></h4>" +
-        //                 "<div class='wrapper'>" +
-        //                 "<div>" +
-        //                 "We deeply regret, unfortunately there is no picture available for this establishment." +
-        //                 "<div id='reviews'/>" +
-        //                 "<div><h4>Your Rating:</h4></div>" +
-        //                 "<div>" +
-        //                 "    <input type='number' id='starsAddRating' min='1' max='5'>" +
-        //                 "</div>" +
-        //                 "<div>" +
-        //                 "    <input type='text' id='ratingTextAddRating'  placeholder='Tell us what you think...'>" +
-        //                 "</div>" +
-        //                 "<button type='button'>Close</button>" +
-        //                 "</div>";
-        //             // jQuery('.gm-style-iw').prev('div').remove();
-        //             // jQuery('.gm-style-iw').prev('div').css("background: linear-gradient(blue, lightblue);");
-        //
-        //             MapObject.infow = new google.maps.InfoWindow({content: content, maxWidth: 500});
-        //             MapObject.infow.open(map, marker);
-        //         }
-        //     });
-        // });
+        });
         $('#title').append(marker.getTitle());
+
+        var restaurants = Storage.load(Storage.RESTAURANTS);
+        var contentString = "";
+
+        for (var i=0; i<restaurants.length; i++){
+            if (restaurants[i].id === marker.id){
+                if (restaurants[i].ratings.length===0){
+                    contentString += "<div>";
+                    for (var b = 0; b < 5; b++) {
+                        contentString += '&#10025;';
+                    }
+                    contentString += "</div>";
+                    contentString += "<div>";
+                    contentString += "No comments yet...";
+                    contentString += "</div>";
+                    console.log("No comments yet...");
+                } else {
+                    contentString += "";
+                    for (var r = 0; r<restaurants[i].ratings.length; r++){
+                        contentString += "<div>";
+                        for (var b = 0; b < 5; b++) {
+                            // filled one's..
+                            if (b < restaurants[i].ratings[r].stars) {
+                                contentString += '&#10029;';
+                            } else {
+                                // empty one's
+                                contentString += '&#10025;';
+                            }
+                        }
+                        contentString += "</div>";
+                        contentString += "<div>";
+                        contentString += restaurants[i].ratings[r].comment;
+                        contentString += "</div>";
+                    }
+                    console.log("Comments found", contentString);
+                }
+            }
+        }
         $('#reviews').empty();
-        $('#reviews').append("<p>Hello World</p>");
+        $('#reviews').append(contentString);
     },
     createLocation: function (marker) {
         return "https://maps.googleapis.com/maps/api/streetview/metadata?location=" +
@@ -457,7 +392,8 @@ var MapObject = {
         Storage.save(Storage.FROM_STARS, $("#fromStars").val())
         Storage.save(Storage.TO_STARS, $("#toStars").val())
         MapObject.listRestaurants();
-    }, guid:function() {
+    },
+    guid:function() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
                 .toString(16)
